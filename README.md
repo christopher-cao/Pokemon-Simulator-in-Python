@@ -1,17 +1,17 @@
 Pokemon Battle Simulator
-————————————
+
 Christopher Cao 
 ITP 115 
-————————————
-Overview
+
+OVERVIEW
 This program is a simple Pokemon battle simulator using the 150 Pokemon from the first generation of Pokemon games. 
 
 Running the Program
 Make sure all python files, csv’s, and image files are in the same directory. This includes: Application.py, Attack.py, Kanto Pokemon Spreadsheet.csv, Main.py, Move.py, Poked.py, Pokemon Moves.csv, Pokemon.py, and Type Advantages.csv. 
 
 Run the program by running Main.py. 
-————————————————
-How the Program Works
+
+HOW THE PROGRAM WORKS
 Begin the program by entering Pokemon names into the entry boxes at the top of the window. The user can press the “See All Pokemon” button to print a list of Pokemon to the text box in the middle of the window. 
 
 This button is connected to a function that reads through the “Kanto Pokemon Spreadsheet.csv” file and extracts all the Pokemon names, which are then placed into a list called “pokedex.” It then prints this list to the text box.
@@ -25,8 +25,8 @@ After the user presses “Begin Battle,” the game loop begins. For whichever P
 The other “Select Move” button does the same thing as the first, just for the opposite Pokemon. This loop between the two selectMove() methods continues until one of the Pokemon faints, after which it will print “(Pokemon Name) fainted” to the text box. The program uses an if statement along with the isAlive() method for the Pokemon class to check if one of the Pokemon has fainted. If this method returns “True”, it will disable all buttons and entries EXCEPT for the reset button. 
 
 If the user wants to play again, they should press the “Restart” button.  This button completely clears all data from the program. It resets the Pokemon objects and sprites, deletes all text from the window, and only enables the Pokemon entry boxes, the “See All Pokemon”  and “Lock In” buttons, just like at the beginning of the program.
-———————————————————————————————————
-Overview of Pokemon Battle Mechanics
+
+OVERVIEW OF POKEMON BATTLE MECHANICS
 Pokemon battles work on a turn-based system. One turn consists of one Pokemon attacking and then the other Pokemon attacking back. There are two different types of moves this program uses: those that deal damage, and those that alter stats. For damage-dealing moves, the damage is calculated using the damage formula: (((2 x Level + 10)/250) x (Attack/Defense) x Move Base Damage + 2) x Modifier). This program calculates all damage as if all Pokemon are level 50. 
 
 The modifier for the damage depends on typing of the move and Pokemon. For example, Fire type moves are “super effective” against Grass type Pokemon. In this situation, the modifier for the damage would be 2 and the original damage would be doubled. Conversely, Grass type moves are “not very effective” against Fire type Pokemon, so the modifier for the damage is 0.5. Moves can also not affect other Pokemon. For example, Ground type moves are not effective against Flying type Pokemon, so the modifier for the damage is 0, making the damage 0. This program accounts for type effectiveness by reading through the “Type Advantages.csv” file. 
