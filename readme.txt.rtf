@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1343\cocoasubrtf160
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww25140\viewh13300\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\b\fs28 \cf0 Pokemon Battle Simulator
+\b0\fs24 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Christopher Cao \
+ITP 115 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+
+\b\fs28 Overview
+\b0\fs24 \
+This program is a simple Pokemon battle simulator using only Pokemon from the first generation of Pokemon games. \
+\
+
+\b\fs28 Running the Program
+\b0\fs24 \
+Make sure all python files, csv\'92s, and image files are in the same directory. This includes: Application.py, Attack.py, Kanto Pokemon Spreadsheet.csv, Main.py, Move.py, Poked.py, Pokemon Moves.csv, Pokemon.py, and Type Advantages.csv. \
+\
+Run the program by running Main.py. \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+
+\b\fs28 How the Program Works
+\b0\fs24 \
+
+\b Begin the program by entering Pokemon names into the entry boxes at the top of the window
+\b0 . The user can press the \'93See All Pokemon\'94 button to print a list of Pokemon to the text box in the middle of the window. \
+\
+This button is connected to a function that reads through the \'93Kanto Pokemon Spreadsheet.csv\'94 file and extracts all the Pokemon names, which are then placed into a list called \'93pokedex.\'94 It then prints this list to the text box.\
+\
+
+\b After typing in both Pokemon, the user should press \'93Lock In.\'94
+\b0  This button checks the Pokemon entries for errors and enables the \'93Begin Battle\'94 button. If any of the entries are not in the \'93pokedex\'94, it will ask the user to re-enter their choices and double-check for any spelling errors.  If both entries are valid, it will enable the \'93Begin Battle\'94 button and prevent the user from changing their entries. \
+\
+
+\b Then the user should press the \'93Begin Battle\'94 button
+\b0 . This button begins the battle and enables the user to input moves for one of the Pokemon. It decides which Pokemon to enable based on the Pokemon\'92s speed stat (Pokemon.battleSpeed) using an \'93if\'94 statement. The Pokemon with the higher speed stat will be enabled first. \
+\
+
+\b After the user presses \'93Begin Battle,\'94 the game loop begins
+\b0 . For whichever Pokemon has been enabled first, the user should type in a move from the provided move list into the respective entry field and press the \'93Select Move\'94 button. If the user-selected move is not in the Pokemon\'92s moveset, nothing will happen when the user presses the button. If the user-selected move is in the Pokemon\'92s moveset, it will run the user-inputted string through the attack() function. For example, if the user had Charizard use \'93Fire Punch\'94 on Blastoise, the attack function would read: attack(\'93Fire Punch\'94, Charizard, Blastoise). This attack function then returns a string indicating which move was used, how much HP the opposing Pokemon lost, and the move\'92s effective. It will then enable the move entry and button for the other Pokemon, while disabling the current Pokemon\'92s move entry field. \
+\
+The other \'93Select Move\'94 button does the same thing as the first, just for the opposite Pokemon. This loop between the two selectMove() methods continues until one of the Pokemon faints, after which it will print \'93(Pokemon Name) fainted\'94 to the text box. The program uses an if statement along with the isAlive() method for the Pokemon class to check if one of the Pokemon has fainted. If this method returns \'93True\'94, it will disable all buttons and entries EXCEPT for the reset button. \
+\
+
+\b If the user wants to play again, they should press the \'93Restart\'94 button
+\b0 .  This button completely clears all data from the program. It resets the Pokemon objects and sprites, deletes all text from the window, and only enables the Pokemon entry boxes, the \'93See All Pokemon\'94  and \'93Lock In\'94 buttons, just like at the beginning of the program.\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+
+\b\fs28 Overview of Pokemon Battle Mechanics
+\b0 \
+
+\fs24 Pokemon battles work on a turn-based system. One turn consists of one Pokemon attacking and then the other Pokemon attacking back. There are two different types of moves this program uses: those that deal damage, and those that alter stats. For damage-dealing moves, the damage is calculated using the damage formula: (((2 x Level + 10)/250) x (Attack/Defense) x Move Base Damage + 2) x Modifier). This program calculates all damage as if all Pokemon are level 50. \
+\
+The modifier for the damage depends on typing of the move and Pokemon. For example, Fire type moves are \'93super effective\'94 against Grass type Pokemon. In this situation, the modifier for the damage would be 2 and the original damage would be doubled. Conversely, Grass type moves are \'93not very effective\'94 against Fire type Pokemon, so the modifier for the damage is 0.5. Moves can also not affect other Pokemon. For example, Ground type moves are not effective against Flying type Pokemon, so the modifier for the damage is 0, making the damage 0. This program accounts for type effectiveness by reading through the \'93Type Advantages.csv\'94 file. \
+\
+There are also stat-changing moves. For example, if a move lowers the opponent\'92s Attack stat, the damage of the opponent\'92s moves would decrease. If a move lowers the opponent\'92s Defense stat, the damage of your Pokemon\'92s moves would increase. Moves can also increase the user\'92s stats. Also, moves can increase any of the user Pokemon\'92s stats, such as attack or defense. In this program, for non-damaging moves, I use a code in the \'93Pokemon Moves.csv\'94 file to indicate which stat to alter. For example \'93a+\'94 means raise the user\'92s attack stage while \'93a-\'93 means lower the opponent\'92s attack stage.\
+\
+At the beginning of a battle, all of a Pokemon\'92s stat stages are 0. Depending on different moves used, this stat stage will change, changing this stat for the duration of the battle. For example, if a Pokemon\'92s attack stage is +1, then the new in-battle attack (Pokemon.battleAttack) is multiplied by 3/2. Conversely, if a Pokemon\'92s attack stage is -1, then the new in-battle attack is multiple by 2/3. This process continues until the stat stage reaches +/- 6. This program takes these stat stages into account using a function called statMod() in the Attack.py file. \
+\
+This program tries to stay as true to the Pokemon games as possible, so all calculations of move damage, base stats, in-battle stats, and etc. are replicated from the actual Pokemon games. For more information about Pokemon battle mechanics, please visit: \
+{\field{\*\fldinst{HYPERLINK "http://bulbapedia.bulbagarden.net/wiki/Damage#Damage_formula"}}{\fldrslt http://bulbapedia.bulbagarden.net/wiki/Damage#Damage_formula}}\
+{\field{\*\fldinst{HYPERLINK "http://bulbapedia.bulbagarden.net/wiki/Stats"}}{\fldrslt http://bulbapedia.bulbagarden.net/wiki/Stats}}\
+\
+Please note that there are several aspects of Pokemon battles that this program does not take into consideration, such as move accuracy, Pokemon nature, and move power points. \
+\
+}
